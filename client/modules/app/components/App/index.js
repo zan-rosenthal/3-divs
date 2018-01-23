@@ -2,7 +2,7 @@ import React from "react";
 import { themr } from "react-css-themr";
 import appTheme from "./theme.scss";
 
-import ThreeDivs from '../ThreeDivs'
+import ThreeDivs from "../ThreeDivs";
 
 export function App({ theme }) {
   return (

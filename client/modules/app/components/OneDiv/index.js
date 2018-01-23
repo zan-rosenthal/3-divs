@@ -1,47 +1,50 @@
-import React, { PureComponent } from 'react'
-import styles from './styles.scss'
+import React, { PureComponent } from "react";
+import styles from "./styles.scss";
 
-const getBackgroundColor = (color) => `rgb(${color*10},${color*100},${color*25})`
+const getBackgroundColor = color => `rgb(0,${color * 100},215)`;
 
-const getStyles = ({ index, maxIndex }) => {
-  const length = ((index * 25)+10)
-  const backgroundColor = getBackgroundColor(index)
-
+const getDivStyles = ({ index, maxIndex }) => {
+  const length = maxIndex * 25 + 20;
+  const backgroundColor = getBackgroundColor(index);
   return {
     "align-items": "center",
-    "border": "gray 1px solid",
+    border: "gray 1px solid",
     backgroundColor,
-    "color": "white",
-    "display": "flex",
-    "height": `${length}%`,
+    color: "white",
+    display: "flex",
+    height: `${length}%`,
     "justify-content": "center",
-    "position": "absolute",
-    "width" : `${length}%`,
-    "zIndex": index + 1,
-  }
-}
+    position: "absolute",
+    width: `${length}%`,
+    zIndex: maxIndex + 1
+  };
+};
 
+const getHeaderStyles = ({ index }) => ({
+  margin: `${index * 2}.5% 0 auto 0`
+});
 
 export default class OneDiv extends PureComponent {
-
   handleClick = () => {
-    console.log('clicked div', this.props.index)
-  }
+    console.log("clicked div", this.props.index);
+  };
 
   render() {
-    const { index, maxIndex} = this.props
-    return index > 0  && (
+    const { index, maxIndex } = this.props;
+    return (
+      maxIndex > 0 &&
       <div
         className={styles.outerDiv}
         onClick={this.handleClick.bind(this)}
-        style={getStyles(this.props)}>
-        Div { index }
+        style={getDivStyles(this.props)}
+      >
+        <span style={getHeaderStyles(this.props)}>Div {index}</span>
         <OneDiv
           className={styles.innerDiv}
-          index={index - 1}
-          maxIndex={maxIndex- 1}
+          index={index + 1}
+          maxIndex={maxIndex - 1}
         />
       </div>
-    )
+    );
   }
 }
